@@ -1,0 +1,17 @@
+<h1>Welcome to your Dashboard</h1>
+
+<% topics.forEach(t => { %>
+  <h2><%= t.topic %></h2>
+  <ul>
+    <% t.messages.forEach(m => { %>
+      <li><%= m.content %> (Posted <%= m.timestamp.toLocaleString() %>)</li>
+    <% }) %>
+  </ul>
+
+  <form action="/messages/<%= t.id %>/post" method="POST">
+    <input type="text" name="content" placeholder="Write a message..." required>
+    <button type="submit">Post</button>
+  </form>
+<% }) %>
+
+<a href="/topics">Manage Subscriptions</a>

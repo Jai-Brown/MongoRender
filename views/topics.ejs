@@ -1,0 +1,33 @@
+<h1>Topics</h1>
+
+<h2>Subscribed Topics</h2>
+<ul>
+  <% subscribed.forEach(topic => { %>
+    <li>
+      <%= topic.name %>
+      <form action="/topics/<%= topic._id %>/unsubscribe" method="POST" style="display:inline;">
+        <button type="submit">Unsubscribe</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<h2>Available Topics</h2>
+<ul>
+  <% unsubscribed.forEach(topic => { %>
+    <li>
+      <%= topic.name %>
+      <form action="/topics/<%= topic._id %>/subscribe" method="POST" style="display:inline;">
+        <button type="submit">Subscribe</button>
+      </form>
+    </li>
+  <% }) %>
+</ul>
+
+<h2>Create a New Topic</h2>
+<form action="/topics/create" method="POST">
+  <input type="text" name="name" placeholder="Topic name" required>
+  <button type="submit">Create</button>
+</form>
+
+<a href="/dashboard">Back to Dashboard</a>

@@ -1,4 +1,4 @@
-const { MongoClient } = require("mongodb");
+/*const { MongoClient } = require("mongodb");
 
 // The uri string must be the connection string for the database (obtained on Atlas).
 const uri = "mongodb+srv://TestUser:TestUserPassword1@cluster0.evqdlxv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -51,4 +51,24 @@ async function run() {
   }
 }
 run().catch(console.dir);
-});
+});*/
+
+require('dotenv').config();
+const express = require('express');
+const session = require('express-session');
+const app = express();
+
+require('./utils/db'); // DB Singleton init
+
+app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: false }));
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: true }));
+
+// Routes
+app.use('/topics', require('./routes/topicRoutes'));
+app.use('/auth', require('./routes/authRoutes'));
+app.use('/messages', require('./routes/messageRoutes'));
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Running on port ${PORT}`));
+
